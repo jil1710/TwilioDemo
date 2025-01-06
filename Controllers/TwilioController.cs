@@ -22,7 +22,7 @@ namespace TwilioDemo.Controllers
         [HttpPost]
         public ActionResult SendMesage(string phone)
         {
-            TwilioClient.Init("AC40a639a7a0fcd819212d994dcdb3582d", "d30182cbb12aa189d0997f4ad7842dd4");
+            TwilioClient.Init("AC40a639a7a0fcd819212d994dcdb3582d", "085234e04090c20036160c80128249a3");
 
             var message = MessageResource.Create(
                 body: "What is your name",
