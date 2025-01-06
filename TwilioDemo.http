@@ -1,0 +1,6 @@
+@TwilioDemo_HostAddress = http://localhost:5210
+
+GET {{TwilioDemo_HostAddress}}/weatherforecast/
+Accept: application/json
+
+###
