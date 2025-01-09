@@ -94,7 +94,7 @@ namespace TwilioDemo.Controllers
 
         
         
-        [HttpPost]
+        [HttpGet]
         public async Task<IActionResult> RecieveMesage()
         {
             // Path to the file
