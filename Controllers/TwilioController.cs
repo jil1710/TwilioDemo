@@ -46,7 +46,7 @@ namespace TwilioDemo.Controllers
             var url = $"{BaseUrl}messaging";
             var payload = $"username={Username}&to={to}&message={Uri.EscapeDataString(message)}";
 
-            using (var client = new HttpClient())
+            using (var client = new System.Net.Http.HttpClient())
             {
                 // Encode username and API key into Basic Auth header
                 var authToken = Convert.ToBase64String(Encoding.UTF8.GetBytes($"{Username}:{ApiKey}"));
