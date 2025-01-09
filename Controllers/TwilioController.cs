@@ -3,10 +3,21 @@ using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Newtonsoft.Json;
 using System.Text;
+using Twilio.Http;
 
 
 namespace TwilioDemo.Controllers
 {
+    public class SmsRequest
+    {
+        public string From { get; set; }    // Sender's number
+        public string To { get; set; }      // Your shortcode or test number
+        public string Text { get; set; }    // The message content
+        public string Date { get; set; }    // Timestamp of the message
+        public string Id { get; set; }      // Unique message ID
+        public string LinkId { get; set; }  // Optional field for linking messages
+    }
+
     [ApiController]
     [Route("[controller]/[action]")]
     public class TwilioController : ControllerBase
@@ -94,23 +105,14 @@ namespace TwilioDemo.Controllers
 
         
         
-        [HttpGet]
-        public async Task<IActionResult> RecieveMesage()
+        [HttpPost]
+        public IActionResult RecieveMesage([FromForm] SmsRequest request)
         {
-            // Path to the file
-            var filePath = Path.Combine(Directory.GetCurrentDirectory(), "Files", "example.txt");
+            // Log incoming SMS details
+            _logger.LogInformation($"Received SMS from {request.From} to {request.To}: {request.Text}");
 
-            // Ensure the file exists
-            if (!System.IO.File.Exists(filePath))
-            {
-                return NotFound("File not found.");
-            }
-
-            // Read file as a byte array
-            var fileBytes = await System.IO.File.ReadAllBytesAsync(filePath);
-
-            // Return the file for download
-            return File(fileBytes, "application/octet-stream", "example.txt");
+            // Responding back to Africa's Talking (optional)
+            return Ok(new { status = "success" });
         }
     }
 }
