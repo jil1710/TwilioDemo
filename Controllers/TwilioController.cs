@@ -92,16 +92,25 @@ namespace TwilioDemo.Controllers
             //}
         }
 
-        [AllowAnonymous]
+        
+        
         [HttpPost]
-        public IActionResult RecieveMesage()
+        public async Task<IActionResult> RecieveMesage()
         {
+            // Path to the file
+            var filePath = Path.Combine(Directory.GetCurrentDirectory(), "Files", "example.txt");
 
+            // Ensure the file exists
+            if (!System.IO.File.Exists(filePath))
+            {
+                return NotFound("File not found.");
+            }
 
+            // Read file as a byte array
+            var fileBytes = await System.IO.File.ReadAllBytesAsync(filePath);
 
-
-
-            return Content("msg.ToString()", "application/xml");
+            // Return the file for download
+            return File(fileBytes, "application/octet-stream", "example.txt");
         }
     }
 }
